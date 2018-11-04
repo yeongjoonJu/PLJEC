@@ -1,44 +1,44 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Installed packages
 
-## Available Scripts
+#### 경로(Node_PATH)
 
-In the project directory, you can run:
++ cross-env --dev
 
-### `npm start`
+#### Redux(리덕스) { Link, NavLink, Route, BrowserRouter }
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
++ redux
++ react-redux
++ redux-actions
++ immutable
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+#### React Router
 
-### `npm test`
++ react-router-dom
++ query-string : URL 쿼리 해석 라이브러리
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### 웹 요청 클라이언트
 
-### `npm run build`
++ axios
++ body-parser : JSON 형태의 데이터를 HTTP 요청에서 파싱할 때 사용
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### CSS, SaSS 라이브러리
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
++ classnames: CSS Module과 조건부 className을 설정하는 것을 도와주는 라이브러리
++ sass-loader : SaSS 사용 시 필요 라이브러리
++ node-sass:  SaSS 사용 시 필요 라이브러리
++ include-media: Sass 라이브러리(반응형 디자인)
++ open-color: 색상 팔레트
++ better-react-spinkit: 로딩 시 필요 컴포넌트
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### 서버
 
-### `npm run eject`
++ express : Node.js 웹 프레임워크
++ nodemon: development 환경에서 파일이 수정될 때마다 서버를 재시작
++ webpack
++ webpack-dev-server
++ react-hot-loader
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+#### 기타
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
++ moment : 날짜 관련 라이브러리
++ babel-cli : 콘솔 환경에서 babel을 사용할 수 있게 하는 라이브러리
