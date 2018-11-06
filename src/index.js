@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Root from 'client/Root';
 import * as serviceWorker from './serviceWorker';
 import styles from './index.css';
+import 'semantic-ui-css/semantic.min.css';
 
 
 ReactDOM.render(<Root style={styles} />, document.getElementById('root'));

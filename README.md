@@ -32,13 +32,24 @@
 
 #### 서버
 
-+ express : Node.js 웹 프레임워크
-+ nodemon: development 환경에서 파일이 수정될 때마다 서버를 재시작
-+ webpack
-+ webpack-dev-server
-+ react-hot-loader
++ yarn global add serve [ serve -s build를 통해 시작]
 
 #### 기타
 
 + moment : 날짜 관련 라이브러리
-+ babel-cli : 콘솔 환경에서 babel을 사용할 수 있게 하는 라이브러리
++ react-scrollbar
+
+
+
+I used semantic-ui
+
+
+
+Error: spawn react-scripts ENOENT
+    at notFoundError
+
+특정 패키지를 설치하고나서 `yarn start`를 실행하면 위와 같은 에러가 뜨면서 실행이 안 되는 경우가 있다. 이럴 때는 npm uninstall -g yarn으로 yarn 패키지를 제거하고 다시 yarn으로 설치하면 된다.
+
+npm install semantic-ui-react
+
+[사용법](https://react.semantic-ui.com/usage)

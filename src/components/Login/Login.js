@@ -1,21 +1,50 @@
-import React, { Component } from 'react';
-import styles from './Login.scss';
-import classNames from 'classnames/bind';
+import React from 'react'
+import logo from 'image/pljec_log.png';
+import { Link } from 'react-router-dom';
 
-const cx = classNames.bind(styles);
+import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 
-class Login extends Component {
-
-    render() {
-        return (
-            <div className ={cx('login')}>
-                <div className={cx('title')}> Login </div>
-                <input placeholder='your ID' />
-                <input placeholder='your password'/>
-                <button onClick={this.handleSubmit}>sign in</button>
-            </div>
-        );
-    };
-}
-
-export default Login;
+const LoginForm = () => (
+    <div className='login-form'>
+      {/*
+        Heads up! The styles below are necessary for the correct render of this example.
+        You can do same with CSS, the main idea is that all the elements up to the `Grid`
+        below must have a height of 100%.
+      */}
+      <style>{`
+        body > div,
+        body > div > div,
+        body > div > div > div.login-form {
+          height: 100%;
+        }
+      `}</style>
+      <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
+        <Grid.Column style={{ maxWidth: 450 }}>
+          <Header as='h2' color='teal' textAlign='center'>
+            <Image src={logo} /> Log-in to your account
+          </Header>
+          <Form size='large'>
+            <Segment stacked>
+              <Form.Input fluid icon='user' iconPosition='left' placeholder='E-mail address' />
+              <Form.Input
+                fluid
+                icon='lock'
+                iconPosition='left'
+                placeholder='Password'
+                type='password'
+              />
+  
+              <Button color='teal' fluid size='large'>
+                Login
+              </Button>
+            </Segment>
+          </Form>
+          <Message>
+            Join or Create your Project!<br/> <Link to="/signup">Sign Up</Link>
+          </Message>
+        </Grid.Column>
+      </Grid>
+    </div>
+  )
+  
+  export default LoginForm
