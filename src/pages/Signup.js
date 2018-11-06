@@ -41,6 +41,22 @@ const style = {
 
 class Signup extends Component {
 
+    state = {
+        personalInfo : {
+            email : '',
+            password : '',
+        }
+    }
+
+    handlePersonalInfo = (data) => {
+        this.setState({
+            ...this.state,
+            personalInfo : {
+                ...data
+            }
+        });
+    }
+
     render() {
         const { match } = this.props;
         const number = match.params.number;
@@ -48,13 +64,13 @@ class Signup extends Component {
         return (
             <div>
                 <Container style={style.h3}>
-                    <Link exact to='/'><Button content='Home' icon='arrow alternate circle left outline' labelPosition='left' /></Link>
+                    <Link to='/'><Button content='Home' icon='arrow alternate circle left outline' labelPosition='left' /></Link>
                     <h1>Join PLJEC</h1>
                     The best way to implement your idea with diverse people.
                 </Container>
                 <Container style={style.base}>
                     <Step.Group fluid>
-                        { number === '1' ?
+                        { (number === '1' || number === undefined) ?
                             ( <Step active icon='address card' title='Step 1:' description='Create personal account' /> )
                             : ( <Step disabled icon='address card' title='Step 1:' description='Create personal account' /> )
                         }
@@ -69,7 +85,7 @@ class Signup extends Component {
                     </Step.Group>
                 </Container>
                 <Container style={style.base}>
-                    { number === '1' && <PersonalInput />}
+                    { (number === '1' || number === undefined) && <PersonalInput onChange={this.handlePersonalInfo} />}
                 </Container>
             </div>
         );
