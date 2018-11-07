@@ -11,7 +11,7 @@ import {
   Menu,
   Segment,
 } from 'semantic-ui-react'
-import logo from 'image/pljec_log.png';
+import logo from 'image/logo.png';
 
 const FixedMenuLayout = () => (
   <div>

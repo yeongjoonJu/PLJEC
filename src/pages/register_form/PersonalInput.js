@@ -23,6 +23,10 @@ const style = {
     row : {
         display : 'flex',
         flexDirection : 'row',
+    },
+    paddinglr : {
+        paddingLeft : '6%',
+        paddingRight : '6%'
     }
 };
 
@@ -32,6 +36,7 @@ class PersonalInput extends Component {
         password : '',
         pcheck : '',
         certification_number : '',
+        sended : false,
         check : {
             email : false,
             password : false,
@@ -43,35 +48,42 @@ class PersonalInput extends Component {
 
     handleChange = (e) => {
         const { name, value } = e.target;
-        this.setState({
-            ...this.state,
-            [name]: value
-        });
-        console.log('name ' + name + ' password ' + value);
-        this.checkRegex(name, value);
+        this.checkCorrectForm(name, value);
     }
 
     handleSubmit = (e) => {
-        e.preventDefault();
         this.props.onSubmitPersonal({
             email : this.state.email,
             password : this.state.password
         });
     }
 
-    checkRegex = (name, value) => {
+    handleEmail = () => {
+        this.setState({
+            ...this.state,
+            sended : true
+        })
+    }
+
+    checkCorrectForm = (name, value) => {
         const email_regex = /([\w\.\-_]+)?\w+@[\w-_]+(\.\w+){1,}/;
         const password_regex = /^(?=.*\d)(?=.*[a-z])(?=.*[a-zA-Z]).{8,20}$/;
         let check = false;
 
-        if(name === 'email')
+        if(name === 'email') {
             check = (email_regex.exec(value) !== null);
-        else if(name === 'password')
-            check = (password_regex.exec(value) !== null);          
+        }
+        else if(name === 'password') {
+            check = (password_regex.exec(value) !== null);
+        }
+        else if(name === 'pcheck') {
+            if(value === this.state.password) check = true;
+        }
         else return;
 
         this.setState( {
             ...this.state,
+            [name] : value,
             check : {
                 ...this.state.check,
                 [name] : check
@@ -80,15 +92,12 @@ class PersonalInput extends Component {
     }
 
     render() {
-        const { password, pcheck, certification_number, check } = this.state;
-        console.log('password');
-        console.log(password);
-        console.log('password check');
-        console.log(pcheck);
+        const { certification_number, check, sended } = this.state;
+    
         return (
             <div>
                 <Form>
-                    <Segment piled>
+                    <Segment piled style={style.paddinglr}>
                         <Label style={style.base}> Email </Label>
                         { !check.email && <Label pointing='left' color='red' basic>Please enter a valid email address </Label>}
                         <Form.Input onChange={this.handleChange} name='email' fluid icon='at' iconPosition='right' placeholder='E-mail address'/>
@@ -96,14 +105,14 @@ class PersonalInput extends Component {
                         { !check.password && <Label pointing='left' color='red' basic>The password must be between 8 and 20 characters and it must be a mixture of numbers and alphabetic characters. </Label>}
                         <Form.Input onChange={this.handleChange} name='password' fluid icon='lock' placeholder='Password' type='password'/>
                         <Label style={style.base}> Password Check </Label>
-                        { pcheck !== password && <Label pointing='left' color='red' basic>Passwords do not match. Please check again. </Label>}
+                        { !check.pcheck && <Label pointing='left' color='red' basic>Passwords do not match. Please check again. </Label>}
                         <Form.Input onChange={this.handleChange} name='pcheck' fluid icon='check' placeholder='Password Check' type='password'/>
                         <Label style={style.base}> Email Authentication </Label>
                         <div>
                             <Form.Input onChange={this.handleChange} name='certification_number' fluid icon='at' iconPosition='right' placeholder='Certification Number'/>
                             <Message content="If you don't receive our mail, click 're-send' button" icon='help circle' info />
-                            <Button> re-send </Button>
-                            <Button disabled primary>confirm</Button>
+                            <Button onClick={this.handleEmail}> {sended ? 'Re-send' : 'Send email'} </Button>
+                            <Button disabled={!sended} primary>confirm</Button>
                         </div>
                     </Segment>
                     <Link to='/signup/2'><Button disabled onClick={this.handleSubmit} color='teal' fluid size='large'>

@@ -1,5 +1,5 @@
 import React from 'react'
-import logo from 'image/pljec_log.png';
+import logo from 'image/logo.png';
 import { Link } from 'react-router-dom';
 
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
