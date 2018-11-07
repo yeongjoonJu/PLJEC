@@ -1,19 +1,10 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
-import { PersonalInput } from './register_form';
+import  {PersonalInputContainer} from 'containers';
 import {
   Button,
   Container,
-  Grid,
-  Header,
-  Icon,
-  Image,
-  Item,
-  Label,
-  Menu,
-  Segment,
   Step,
-  Table,
 } from 'semantic-ui-react'
 
 const style = {
@@ -85,7 +76,7 @@ class Signup extends Component {
                     </Step.Group>
                 </Container>
                 <Container style={style.base}>
-                    { (number === '1' || number === undefined) && <PersonalInput onChange={this.handlePersonalInfo} />}
+                    { (number === '1' || number === undefined) && <PersonalInputContainer onChange={this.handlePersonalInfo} />}
                 </Container>
             </div>
         );

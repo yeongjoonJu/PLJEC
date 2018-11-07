@@ -53,3 +53,9 @@ Error: spawn react-scripts ENOENT
 npm install semantic-ui-react
 
 [사용법](https://react.semantic-ui.com/usage)
+
+```
+Attempted import error: 'store' is not exported from 'store'.
+```
+
+위와 같은 에러가 날 때가 많은데 이럴 경우 비구조화 할당을 해제해보자.
