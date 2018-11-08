@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
-import  {PersonalInputContainer} from 'containers';
+import {PersonalInputContainer} from 'containers';
+import {RegisterHeaderContainer} from 'containers';
 import {
   Button,
   Container,
@@ -32,51 +33,15 @@ const style = {
 
 class Signup extends Component {
 
-    state = {
-        personalInfo : {
-            email : '',
-            password : '',
-        }
-    }
-
-    handlePersonalInfo = (data) => {
-        this.setState({
-            ...this.state,
-            personalInfo : {
-                ...data
-            }
-        });
-    }
-
     render() {
         const { match } = this.props;
         const number = match.params.number;
 
         return (
             <div>
-                <Container style={style.h3}>
-                    <Link to='/'><Button content='Home' icon='arrow alternate circle left outline' labelPosition='left' /></Link>
-                    <h1>Join PLJEC</h1>
-                    The best way to implement your idea with diverse people.
-                </Container>
+                <RegisterHeaderContainer number={number} />
                 <Container style={style.base}>
-                    <Step.Group fluid>
-                        { (number === '1' || number === undefined) ?
-                            ( <Step active icon='address card' title='Step 1:' description='Create personal account' /> )
-                            : ( <Step disabled icon='address card' title='Step 1:' description='Create personal account' /> )
-                        }
-                        { number === '2' ?
-                            ( <Step active icon='clipboard outline' title='Step 2:' description='Enter your detail information' /> )
-                            : ( <Step disabled icon='clipboard outline' title='Step 2:' description='Enter your detail information' /> )
-                        }
-                        { number === '3' ?
-                            ( <Step active icon='tasks' title='Step 3:' description='Enter your experience' /> )
-                            : ( <Step disabled icon='tasks' title='Step 3:' description='Enter your experience' /> )
-                        }
-                    </Step.Group>
-                </Container>
-                <Container style={style.base}>
-                    { (number === '1' || number === undefined) && <PersonalInputContainer onChange={this.handlePersonalInfo} />}
+                    { (number === '1' || number === undefined) && <PersonalInputContainer />}
                 </Container>
             </div>
         );

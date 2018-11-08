@@ -2,17 +2,10 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import {
     Button,
-    Container,
-    Grid,
     Form,
-    Icon,
-    Image,
-    Item,
     Label,
-    Menu,
     Segment,
     Message,
-    Table,
   } from 'semantic-ui-react'
 
 const style = {
@@ -33,7 +26,9 @@ const style = {
 class PersonalInput extends Component {
 
     render() {
-        const { certification_number, onChange, check, sended } = this.props;
+        const { certification_number, onCertificate,
+              onChange, onClickSendMail,
+              check, sended } = this.props;
     
         return (
             <div>
@@ -50,15 +45,16 @@ class PersonalInput extends Component {
                         <Form.Input onChange={onChange} name='pcheck' fluid icon='check' placeholder='Password Check' type='password'/>
                         <Label style={style.base}> Email Authentication </Label>
                         <div>
-                            <Form.Input onChange={onChange} name='certification_number' fluid icon='at' iconPosition='right' placeholder='Certification Number'/>
+                            <Form.Input disabled={!sended} onChange={onChange} name='certification_number' fluid icon='at' iconPosition='right' placeholder='Certification Number'/>
                             <Message content="If you don't receive our mail, click 're-send' button" icon='help circle' info />
-                            <Button onClick={this.handleEmail}> {sended ? 'Re-send' : 'Send email'} </Button>
-                            <Button disabled={!sended} primary>confirm</Button>
+                            <Button onClick={onClickSendMail}> {sended ? 'Re-send' : 'Send email'} </Button>
+                            <Button disabled={!sended} onClick={onCertificate} primary>confirm</Button>
                         </div>
                     </Segment>
-                    <Link to='/signup/2'><Button disabled onClick={this.handleSubmit} color='teal' fluid size='large'>
-                        Next
-                    </Button></Link>
+                    { !check.enable_next &&
+                        (<Button disabled={true} color='teal' fluid size='large'>Next</Button>)}
+                    { check.enable_next &&
+                        (<Link to='/signup/2'><Button disabled={false} onClick={this.handleSubmit} color='teal' fluid size='large'>Next</Button></Link>) }
                 </Form>
             </div>
         );

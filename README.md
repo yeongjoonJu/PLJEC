@@ -59,3 +59,9 @@ Attempted import error: 'store' is not exported from 'store'.
 ```
 
 위와 같은 에러가 날 때가 많은데 이럴 경우 비구조화 할당을 해제해보자.
+
+error found incompatible module yarn 이런 에러가 나면 다음 명령어를 입력해서 해결하자
+
+```
+yarn install --ignore-engines
+```

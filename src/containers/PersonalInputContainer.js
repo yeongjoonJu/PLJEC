@@ -12,11 +12,23 @@ class PersonalInputContainer extends Component {
         InputActions.change_value({name: name, value: value});
     }
 
+    handleSendMail = (e) => {
+        const { InputActions } = this.props;
+        InputActions.send_email();
+    }
+
+    handleCertificate = (e) => {
+        const { InputActions } = this.props;
+        InputActions.certification();
+    }
+
     render() {
         const {certification_number, check, sended} = this.props;
 
         return <PersonalInput
             onChange={this.handleChange}
+            onClickSendMail={this.handleSendMail}
+            onCertificate = {this.handleCertificate}
             certification_number={certification_number}
             check={check} sended={sended} />;
     }
