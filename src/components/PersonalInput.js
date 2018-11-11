@@ -46,7 +46,7 @@ class PersonalInput extends Component {
                         <Label style={style.base}> Email Authentication </Label>
                         <div>
                             <Form.Input disabled={!sended} onChange={onChange} name='certification_number' fluid icon='at' iconPosition='right' placeholder='Certification Number'/>
-                            <Message content="If you don't receive our mail, click 're-send' button" icon='help circle' info />
+                            <Message style={{fontSize:'1rem'}} content="If you don't receive our mail, click 're-send' button" icon='info circle' info />
                             <Button onClick={onClickSendMail}> {sended ? 'Re-send' : 'Send email'} </Button>
                             <Button disabled={!sended} onClick={onCertificate} primary>confirm</Button>
                         </div>

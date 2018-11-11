@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import {PersonalInputContainer} from 'containers';
 import {RegisterHeaderContainer} from 'containers';
+import {DevelopInput} from 'components';
+
 import {
   Button,
   Container,
@@ -42,6 +44,7 @@ class Signup extends Component {
                 <RegisterHeaderContainer number={number} />
                 <Container style={style.base}>
                     { (number === '1' || number === undefined) && <PersonalInputContainer />}
+                    { (number === '2') && <DevelopInput />}
                 </Container>
             </div>
         );

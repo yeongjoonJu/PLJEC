@@ -46,6 +46,7 @@
 + react-scrollbar
 + react-hot-loader
 + bcryptjs : 비밀번호 보안 강화
++ react-tag-input : tag input 라이브러리
 
 
 

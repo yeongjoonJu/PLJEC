@@ -56,6 +56,7 @@ app.listen(port, () => {
 if(process.env.NODE_ENV == 'development') {
     console.log('Server is running on development mode');
     const config = require('../webpack.dev.config');
+    // 여기서 에러, config 객체에서 에러남
     const compiler = webpack(config);
     const devServer = new WebpackDevServer(compiler, config.devServer);
     devServer.listen(
