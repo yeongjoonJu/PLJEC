@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import TagInput from '../TagInput';
+import InterestChoice from '../InterestChoice';
 import './DevelopInput.css';
 import {
     Button,
@@ -18,12 +19,6 @@ const style = {
         margin:'0.5rem',
         padding:'1rem'
     },
-    row : {
-        display : 'flex',
-        flexDirection : 'row',
-        flexWrap : 'wrap',
-    },
-    
     question : {
         marginTop: '2.5rem',
         fontSize: '1.2rem',
@@ -41,6 +36,7 @@ const style = {
 class DevelopInput extends Component {
     state = {
         everCoding : true,
+        choiceLimit : false,
         area: {
             ai: true,
             web: true,
@@ -55,44 +51,122 @@ class DevelopInput extends Component {
             graphic: true,
             network: true,
             game: true,
-            language: true
-        }
+            security: true,
+            language: false,
+        },
+        interest : [
+            { id: 1, text: 'Music', color:'orange', choice: false },
+            { id: 2, text: 'Social', color:'red', choice: false },
+            { id: 3, text: 'Game', color:'purple', choice: false },
+            { id: 4, text: 'Fashion', color:'blue', choice: false },
+            { id: 5, text: 'Fitness', color:'green', choice: false },
+            { id: 6, text: 'Education', color:'yellow', choice: false },
+            { id: 7, text: 'Construction', color:'pink', choice: false },
+            { id: 8, text: 'Inconvenience solution', color:'olive', choice: false },
+            { id: 9, text: 'Mechanical Engineering', color:'violet', choice: false },
+            { id: 10, text: 'Economy', color:'teal', choice: false },
+            { id: 11, text: 'Image processing', color:'brown', choice: false },
+        ]
     };
     
-    handleClickArea = (e) => {
+    handleClickArea = (e, {inverted}) => {
         const {area} = this.state;
         this.setState({
             ...this.state,
             area : {
                 ...this.state.area,
-                [e.target.name] : ![e.target.inverted]
+                [e.target.name] : !inverted
             }
         });
     }
 
+    handleClickInterest = (e, {name}) => {
+        const { interest, choi } = this.state;
+        const index = interest.findIndex(thing => thing.text === name);
+        const selected = interest[index];
+        const choicedinterestList = interest.filter(thing => thing.choice);
+        let limit = false;
+
+        // 이미 선택된 걸 취소하는 경우
+        if(selected.choice) {
+            if(choicedinterestList.length <= 5) limit = false;
+            else limit = true;
+        }
+        // 새로운 걸 선택하는 경우
+        else {
+            if(choicedinterestList.length === 3) limit = true;
+            else if(choicedinterestList.length >= 4) return;
+        }
+        
+        this.setState({
+            ...this.state,
+            choiceLimit : limit,
+            interest: [
+                ...interest.slice(0, index),
+                {
+                    ...selected,
+                    choice: !selected.choice,
+                },
+                ...interest.slice(index + 1, interest.length)
+            ]
+        });
+    }
+
+    handleRadio = (e, {value}) => {
+        if(value === 'yes') {
+            this.setState({
+                ...this.state,
+                everCoding : true
+            })
+        }
+        else {
+            this.setState({
+                ...this.state,
+                everCoding : false
+            })
+        }
+    }
+
     render() {
-        const { area } = this.state;
+        const { interest, area, everCoding } = this.state;
+        const interestList = interest.map(
+            ({id, text, color, choice}) => (
+                <Transition visible={!  choice} animation='scale' duration={300}>
+                    <Button onClick={this.handleClickInterest} style={style.base} name={text} inverted={false} color={color}> {text} </Button>
+                </Transition>
+            )
+        );
+
+        let choicedinterestList = interest.filter(thing => thing.choice);
+        choicedinterestList = choicedinterestList.map(
+            ({id, text, color, choice}) => (
+                <Transition visible={choice} animation='scale' duration={300}>
+                    <Button onClick={this.handleClickInterest} style={style.base} name={text} inverted={false} color={color}> {text} </Button>
+                </Transition>
+            )
+        );
+
         return (
             <div>
                 <Form>
                     <Segment piled style={style.paddinglr}>
                         <Message style={style.question} as='h3'> Have you ever been programming? </Message>
-                        <div style={style.row}>
+                        <div className='area'>
                             <Form.Field style={style.radio}>
-                                <Checkbox radio label='Yes' name='everCoding' value='yes'/>
+                                <Checkbox onClick={this.handleRadio} checked={everCoding} radio label='Yes' name='everCoding' value='yes'/>
                             </Form.Field>
                             <Form.Field style={style.radio}>
-                                <Checkbox radio label='No' name='everCoding' value='no'/>
+                                <Checkbox onClick={this.handleRadio} checked={!everCoding} radio label='No' name='everCoding' value='no'/>
                             </Form.Field>
                         </div>
-                        { this.state.everCoding && (
+                        <Transition visible={everCoding} animation='scale' duration={300}>
                             <div>
                                 <Message style={style.question} as='h3'>Please select areas you had experienced.</Message>
                                 <Segment inverted style={style.row}>
                                     <Button style={style.base} onClick={this.handleClickArea} name='ai' inverted={area.ai} color="red"> A.I </Button>
                                     <Button style={style.base} onClick={this.handleClickArea} name='web' inverted={area.web} color="orange"> Web </Button>
                                     <Button style={style.base} onClick={this.handleClickArea} name='server' inverted={area.server} color="blue"> Server </Button>
-                                    <Button style={style.base} onClick={this.handleClickArea} name='mobile' inverted={area.mobile} color="purple"> Mobile </Button>
+                                    <Button style={style.base} onClick={this.handleClickArea} name='mobile' inverted={area.mobile} color="teal"> Mobile </Button>
                                     <Button style={style.base} onClick={this.handleClickArea} name='system' inverted={area.system} color="yellow"> System Programming </Button>
                                     <Button style={style.base} onClick={this.handleClickArea} name='dataAnalysis' inverted={area.dataAnalysis} color="green"> Data Analysis </Button>
                                     <Button style={style.base} onClick={this.handleClickArea} name='algorithm' inverted={area.algorithm} color="red"> Algorithm </Button>
@@ -101,9 +175,11 @@ class DevelopInput extends Component {
                                     <Button style={style.base} onClick={this.handleClickArea} name='multimedia' inverted={area.multimedia} color="violet"> Multimedia </Button>
                                     <Button style={style.base} onClick={this.handleClickArea} name='graphic' inverted={area.graphic} color="brown"> Graphics </Button>
                                     <Button style={style.base} onClick={this.handleClickArea} name='network' inverted={area.network} color="olive"> Network </Button>
+                                    <Button style={style.base} onClick={this.handleClickArea} name='game' inverted={area.game} color="green"> Game </Button>
+                                    <Button style={style.base} onClick={this.handleClickArea} name='security' inverted={area.security} color="violet"> Security </Button>
                                     <Button style={style.base} onClick={this.handleClickArea} name='language' inverted={area.language} color="blue"> I experienced programming language grammer </Button>
                                 </Segment>
-                                <Message style={style.question} as='h3'>Tag libraries or technologies you can use.</Message>
+                                <Message style={style.question} as='h3'>Please tag libraries or technologies you can use.</Message>
                                 <div className="tag-input">
                                     <TagInput visible={!area.ai} title='A.I' />
                                     <TagInput visible={!area.web} title='Web' />
@@ -118,10 +194,18 @@ class DevelopInput extends Component {
                                     <TagInput visible={!area.graphic} title='Graphics'/>
                                     <TagInput visible={!area.network} title='Network'/>
                                     <TagInput visible={!area.game} title='Game'/>
+                                    <TagInput visible={!area.security} title='Security'/>
                                     <TagInput visible={!area.language} title='Programming Language'/>
                                 </div>
                             </div>
-                        )}
+                        </Transition>
+                        <Message style={style.question} as='h3'>Please Select 4 or fewer interests below.</Message>
+                        <div className='interest'>
+                            { choicedinterestList}
+                        </div>
+                        <Segment disabled={this.state.choiceLimit} className='interest'>
+                            { interestList }
+                        </Segment>
                         <Link to='/signup/3'><Button color='teal' fluid size='large'>Next</Button></Link>
                     </Segment>
                 </Form>

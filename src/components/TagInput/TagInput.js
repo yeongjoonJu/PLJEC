@@ -52,11 +52,6 @@ class TagInput extends Component {
         this.setState({ tags: newTags });
     }
 
-    defaultProps = {
-        title : '',
-        visible: false
-    }
-
     render() {
         const { title, visible} = this.props;
         const { tags, suggestions} = this.state;
@@ -80,4 +75,8 @@ class TagInput extends Component {
     }
 }
 
+TagInput.defaultProps = {
+    title : '',
+    visible: false
+}
 export default TagInput;

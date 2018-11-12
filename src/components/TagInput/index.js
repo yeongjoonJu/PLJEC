@@ -1,1 +1,1 @@
-export {default} from './TagInput';
+export {default } from './TagInput';

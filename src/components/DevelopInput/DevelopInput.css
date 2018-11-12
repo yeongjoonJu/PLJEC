@@ -5,6 +5,18 @@
     flex-wrap: wrap;
     margin: 2%;
 }
+.area {
+    display : flex;
+    flex-direction : row;
+    flex-wrap : wrap;
+}
+
+.interest {
+    background-color: white;
+    display : flex;
+    flex-direction : row;
+    flex-wrap : wrap;
+}
 
 .paddinglr {
     padding-left: 6%;
