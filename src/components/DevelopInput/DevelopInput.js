@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import TagInput from '../TagInput';
-import InterestChoice from '../InterestChoice';
 import './DevelopInput.css';
 import {
     Button,
     Form,
     Message,
     Segment,
-    Header,
     Checkbox,
     Transition
 } from 'semantic-ui-react';
@@ -34,114 +32,34 @@ const style = {
 };
 
 class DevelopInput extends Component {
-    state = {
-        everCoding : true,
-        choiceLimit : false,
-        area: {
-            ai: true,
-            web: true,
-            mobile: true,
-            server: true,
-            dataAnalysis: true,
-            algorithm: true,
-            iot: true,
-            embedded: true,
-            system: true,
-            multimedia: true,
-            graphic: true,
-            network: true,
-            game: true,
-            security: true,
-            language: false,
-        },
-        interest : [
-            { id: 1, text: 'Music', color:'orange', choice: false },
-            { id: 2, text: 'Social', color:'red', choice: false },
-            { id: 3, text: 'Game', color:'purple', choice: false },
-            { id: 4, text: 'Fashion', color:'blue', choice: false },
-            { id: 5, text: 'Fitness', color:'green', choice: false },
-            { id: 6, text: 'Education', color:'yellow', choice: false },
-            { id: 7, text: 'Construction', color:'pink', choice: false },
-            { id: 8, text: 'Inconvenience solution', color:'olive', choice: false },
-            { id: 9, text: 'Mechanical Engineering', color:'violet', choice: false },
-            { id: 10, text: 'Economy', color:'teal', choice: false },
-            { id: 11, text: 'Image processing', color:'brown', choice: false },
-        ]
-    };
-    
     handleClickArea = (e, {inverted}) => {
-        const {area} = this.state;
-        this.setState({
-            ...this.state,
-            area : {
-                ...this.state.area,
-                [e.target.name] : !inverted
-            }
-        });
+        const {name} = e.target;
+        this.props.onClickArea({name: name, inverted: inverted})
     }
 
-    handleClickInterest = (e, {name}) => {
-        const { interest, choi } = this.state;
-        const index = interest.findIndex(thing => thing.text === name);
-        const selected = interest[index];
-        const choicedinterestList = interest.filter(thing => thing.choice);
-        let limit = false;
-
-        // 이미 선택된 걸 취소하는 경우
-        if(selected.choice) {
-            if(choicedinterestList.length <= 5) limit = false;
-            else limit = true;
-        }
-        // 새로운 걸 선택하는 경우
-        else {
-            if(choicedinterestList.length === 3) limit = true;
-            else if(choicedinterestList.length >= 4) return;
-        }
-        
-        this.setState({
-            ...this.state,
-            choiceLimit : limit,
-            interest: [
-                ...interest.slice(0, index),
-                {
-                    ...selected,
-                    choice: !selected.choice,
-                },
-                ...interest.slice(index + 1, interest.length)
-            ]
-        });
+    handleDesignerRadio = (e, {value}) => {
+        this.props.onClickDesignerRadio(value);
     }
 
-    handleRadio = (e, {value}) => {
-        if(value === 'yes') {
-            this.setState({
-                ...this.state,
-                everCoding : true
-            })
-        }
-        else {
-            this.setState({
-                ...this.state,
-                everCoding : false
-            })
-        }
+    handleDevelopRadio = (e, {value}) => {
+        this.props.onClickDevelopRadio(value);
     }
 
     render() {
-        const { interest, area, everCoding } = this.state;
-        const interestList = interest.map(
+        const { everCoding, choiceLimit, areas, interests, onAddInterest, designer} = this.props;       
+        const interestList = interests.map(
             ({id, text, color, choice}) => (
-                <Transition visible={!  choice} animation='scale' duration={300}>
-                    <Button onClick={this.handleClickInterest} style={style.base} name={text} inverted={false} color={color}> {text} </Button>
+                <Transition key={id} visible={!choice} animation='scale' duration={300}>
+                    <Button onClick={onAddInterest} style={style.base} name={text} inverted={false} color={color}> {text} </Button>
                 </Transition>
             )
         );
 
-        let choicedinterestList = interest.filter(thing => thing.choice);
+        let choicedinterestList = interests.filter(interest => interest.choice);
         choicedinterestList = choicedinterestList.map(
             ({id, text, color, choice}) => (
-                <Transition visible={choice} animation='scale' duration={300}>
-                    <Button onClick={this.handleClickInterest} style={style.base} name={text} inverted={false} color={color}> {text} </Button>
+                <Transition key={id} visible={choice} animation='scale' duration={300}>
+                    <Button onClick={onAddInterest} style={style.base} name={text} inverted={false} color={color}> {text} </Button>
                 </Transition>
             )
         );
@@ -150,60 +68,76 @@ class DevelopInput extends Component {
             <div>
                 <Form>
                     <Segment piled style={style.paddinglr}>
-                        <Message style={style.question} as='h3'> Have you ever been programming? </Message>
+                        <Message style={style.question} as='h3'> Have you ever been programming? (If you are designer, choice 'no' ) </Message>
                         <div className='area'>
                             <Form.Field style={style.radio}>
-                                <Checkbox onClick={this.handleRadio} checked={everCoding} radio label='Yes' name='everCoding' value='yes'/>
+                                <Checkbox onClick={this.handleDevelopRadio} checked={everCoding} radio label='Yes' name='everCoding' value='yes'/>
                             </Form.Field>
                             <Form.Field style={style.radio}>
-                                <Checkbox onClick={this.handleRadio} checked={!everCoding} radio label='No' name='everCoding' value='no'/>
+                                <Checkbox onClick={this.handleDevelopRadio} checked={!everCoding} radio label='No' name='everCoding' value='no'/>
                             </Form.Field>
                         </div>
+
+                        {!everCoding && designer !== undefined && (
+                            <div>
+                                <Message style={style.question} as='h3'> Welcome! Are you designer? </Message> 
+                                <div className='area'>
+                                    <Form.Field style={style.radio}>
+                                        <Checkbox onClick={this.handleDesignerRadio} checked={designer} radio label='Yes' name='designer' value='yes'/>
+                                    </Form.Field>
+                                    <Form.Field style={style.radio}>
+                                        <Checkbox onClick={this.handleDesignerRadio} checked={!designer} radio label='No' name='designer' value='no'/>
+                                    </Form.Field>
+                                </div>
+                            </div>
+                        )}
+                            
                         <Transition visible={everCoding} animation='scale' duration={300}>
                             <div>
                                 <Message style={style.question} as='h3'>Please select areas you had experienced.</Message>
                                 <Segment inverted style={style.row}>
-                                    <Button style={style.base} onClick={this.handleClickArea} name='ai' inverted={area.ai} color="red"> A.I </Button>
-                                    <Button style={style.base} onClick={this.handleClickArea} name='web' inverted={area.web} color="orange"> Web </Button>
-                                    <Button style={style.base} onClick={this.handleClickArea} name='server' inverted={area.server} color="blue"> Server </Button>
-                                    <Button style={style.base} onClick={this.handleClickArea} name='mobile' inverted={area.mobile} color="teal"> Mobile </Button>
-                                    <Button style={style.base} onClick={this.handleClickArea} name='system' inverted={area.system} color="yellow"> System Programming </Button>
-                                    <Button style={style.base} onClick={this.handleClickArea} name='dataAnalysis' inverted={area.dataAnalysis} color="green"> Data Analysis </Button>
-                                    <Button style={style.base} onClick={this.handleClickArea} name='algorithm' inverted={area.algorithm} color="red"> Algorithm </Button>
-                                    <Button style={style.base} onClick={this.handleClickArea} name='iot' inverted={area.iot} color="purple"> IOT </Button>
-                                    <Button style={style.base} onClick={this.handleClickArea} name='embedded' inverted={area.embedded} color="pink"> Embedded System</Button>
-                                    <Button style={style.base} onClick={this.handleClickArea} name='multimedia' inverted={area.multimedia} color="violet"> Multimedia </Button>
-                                    <Button style={style.base} onClick={this.handleClickArea} name='graphic' inverted={area.graphic} color="brown"> Graphics </Button>
-                                    <Button style={style.base} onClick={this.handleClickArea} name='network' inverted={area.network} color="olive"> Network </Button>
-                                    <Button style={style.base} onClick={this.handleClickArea} name='game' inverted={area.game} color="green"> Game </Button>
-                                    <Button style={style.base} onClick={this.handleClickArea} name='security' inverted={area.security} color="violet"> Security </Button>
-                                    <Button style={style.base} onClick={this.handleClickArea} name='language' inverted={area.language} color="blue"> I experienced programming language grammer </Button>
+                                    <Button style={style.base} onClick={this.handleClickArea} name='ai' inverted={areas.ai} color="red"> A.I </Button>
+                                    <Button style={style.base} onClick={this.handleClickArea} name='web' inverted={areas.web} color="orange"> Web </Button>
+                                    <Button style={style.base} onClick={this.handleClickArea} name='server' inverted={areas.server} color="blue"> Server </Button>
+                                    <Button style={style.base} onClick={this.handleClickArea} name='mobile' inverted={areas.mobile} color="teal"> Mobile </Button>
+                                    <Button style={style.base} onClick={this.handleClickArea} name='system' inverted={areas.system} color="yellow"> System Programming </Button>
+                                    <Button style={style.base} onClick={this.handleClickArea} name='dataAnalysis' inverted={areas.dataAnalysis} color="green"> Data Analysis </Button>
+                                    <Button style={style.base} onClick={this.handleClickArea} name='algorithm' inverted={areas.algorithm} color="red"> Algorithm </Button>
+                                    <Button style={style.base} onClick={this.handleClickArea} name='iot' inverted={areas.iot} color="purple"> IOT </Button>
+                                    <Button style={style.base} onClick={this.handleClickArea} name='embedded' inverted={areas.embedded} color="pink"> Embedded System</Button>
+                                    <Button style={style.base} onClick={this.handleClickArea} name='multimedia' inverted={areas.multimedia} color="violet"> Multimedia </Button>
+                                    <Button style={style.base} onClick={this.handleClickArea} name='graphic' inverted={areas.graphic} color="brown"> Graphics </Button>
+                                    <Button style={style.base} onClick={this.handleClickArea} name='network' inverted={areas.network} color="olive"> Network </Button>
+                                    <Button style={style.base} onClick={this.handleClickArea} name='game' inverted={areas.game} color="green"> Game </Button>
+                                    <Button style={style.base} onClick={this.handleClickArea} name='security' inverted={areas.security} color="violet"> Security </Button>
+                                    <Button style={style.base} onClick={this.handleClickArea} name='language' inverted={areas.language} color="blue"> I experienced programming language grammer </Button>
                                 </Segment>
                                 <Message style={style.question} as='h3'>Please tag libraries or technologies you can use.</Message>
                                 <div className="tag-input">
-                                    <TagInput visible={!area.ai} title='A.I' />
-                                    <TagInput visible={!area.web} title='Web' />
-                                    <TagInput visible={!area.server} title='Server' />
-                                    <TagInput visible={!area.mobile} title='Mobile' />
-                                    <TagInput visible={!area.dataAnalysis} title='Data Analysis' />
-                                    <TagInput visible={!area.algorithm} title='Algorithm' />
-                                    <TagInput visible={!area.iot} title='IOT' />
-                                    <TagInput visible={!area.embedded} title='Embedded System' />
-                                    <TagInput visible={!area.system} title='System Programming' />
-                                    <TagInput visible={!area.multimedia} title='Multimedia'/>
-                                    <TagInput visible={!area.graphic} title='Graphics'/>
-                                    <TagInput visible={!area.network} title='Network'/>
-                                    <TagInput visible={!area.game} title='Game'/>
-                                    <TagInput visible={!area.security} title='Security'/>
-                                    <TagInput visible={!area.language} title='Programming Language'/>
+                                    <TagInput visible={!areas.ai} title='A.I' />
+                                    <TagInput visible={!areas.web} title='Web' />
+                                    <TagInput visible={!areas.server} title='Server' />
+                                    <TagInput visible={!areas.mobile} title='Mobile' />
+                                    <TagInput visible={!areas.dataAnalysis} title='Data Analysis' />
+                                    <TagInput visible={!areas.algorithm} title='Algorithm' />
+                                    <TagInput visible={!areas.iot} title='IOT' />
+                                    <TagInput visible={!areas.embedded} title='Embedded System' />
+                                    <TagInput visible={!areas.system} title='System Programming' />
+                                    <TagInput visible={!areas.multimedia} title='Multimedia'/>
+                                    <TagInput visible={!areas.graphic} title='Graphics'/>
+                                    <TagInput visible={!areas.network} title='Network'/>
+                                    <TagInput visible={!areas.game} title='Game'/>
+                                    <TagInput visible={!areas.security} title='Security'/>
+                                    <TagInput visible={!areas.language} title='Programming Language'/>
                                 </div>
                             </div>
                         </Transition>
+                        
                         <Message style={style.question} as='h3'>Please Select 4 or fewer interests below.</Message>
                         <div className='interest'>
                             { choicedinterestList}
                         </div>
-                        <Segment disabled={this.state.choiceLimit} className='interest'>
+                        <Segment disabled={choiceLimit} className='interest'>
                             { interestList }
                         </Segment>
                         <Link to='/signup/3'><Button color='teal' fluid size='large'>Next</Button></Link>
@@ -213,5 +147,4 @@ class DevelopInput extends Component {
         );
     };
 }
-
 export default DevelopInput;

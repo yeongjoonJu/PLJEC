@@ -26,7 +26,7 @@ const style = {
 class PersonalInput extends Component {
 
     render() {
-        const { certification_number, onCertificate,
+        const { onCertificate,
               onChange, onClickSendMail,
               check, sended } = this.props;
     

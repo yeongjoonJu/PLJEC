@@ -2,12 +2,10 @@ import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import {PersonalInputContainer} from 'containers';
 import {RegisterHeaderContainer} from 'containers';
-import {DevelopInput} from 'components';
+import {DevelopInputContainer} from 'containers';
 
 import {
-  Button,
   Container,
-  Step,
 } from 'semantic-ui-react'
 
 const style = {
@@ -44,7 +42,7 @@ class Signup extends Component {
                 <RegisterHeaderContainer number={number} />
                 <Container style={style.base}>
                     { (number === '1' || number === undefined) && <PersonalInputContainer />}
-                    { (number === '2') && <DevelopInput />}
+                    { (number === '2') && <DevelopInputContainer />}
                 </Container>
             </div>
         );

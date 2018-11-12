@@ -10,12 +10,6 @@ const KeyCodes = {
 
 const delimiters = [KeyCodes.comma, KeyCodes.enter];
 
-const style = {
-    base : {
-        marginBottom: '1rem'
-    }
-}
-
 class TagInput extends Component {
     state = {
         area : true,
