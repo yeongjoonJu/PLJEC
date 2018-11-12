@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import styles from './DevelopInput.scss';
-import classNames from 'classnames/bind';
-import { WithContext as ReactTags } from 'react-tag-input';
+import TagInput from '../TagInput';
+import './DevelopInput.css';
 import {
     Button,
     Form,
@@ -13,16 +12,8 @@ import {
     Transition
 } from 'semantic-ui-react';
 
-const KeyCodes = {
-    comma: 188,
-    enter: 13
-};
-
-const delimiters = [KeyCodes.comma, KeyCodes.enter];
-
-const cx = classNames.bind(styles);
-
 const style = {
+
     base : {
         margin:'0.5rem',
         padding:'1rem'
@@ -32,10 +23,7 @@ const style = {
         flexDirection : 'row',
         flexWrap : 'wrap',
     },
-    paddinglr : {
-        paddingLeft : '6%',
-        paddingRight : '6%'
-    },
+    
     question : {
         marginTop: '2.5rem',
         fontSize: '1.2rem',
@@ -44,38 +32,33 @@ const style = {
     radio : {
         margin:'0.5rem'
     },
+    paddinglr : {
+        paddingLeft: '6%',
+        paddingRight: '6%'
+    }
 };
 
 class DevelopInput extends Component {
     state = {
         everCoding : true,
-        area : {
-            ai : true,
-            web : true,
-            server : true,
-            mobile : true,
-            dataAnalysis : true,
-            algorithm : true,
-            iot : true,
-            embedded : true,
-            system : true,
-            multimedia : true,
-            graphic : true,
-            network : true,
-            console : true,
-        },
-        tags: [
-         ],
-        suggestions: [
-            { id: 'Pytorch', text: 'Pytorch' },
-            { id: 'Tensorflow', text: 'Tensorflow' },
-            { id: 'Reinforcement_Learning', text: 'Reinforcement Learning' },
-            { id: 'Keras', text: 'Keras' },
-            { id: 'Deeplearning4j', text: 'Deeplearning4j' },
-            { id: 'CUDA', text: 'CUDA' }
-         ]
+        area: {
+            ai: true,
+            web: true,
+            mobile: true,
+            server: true,
+            dataAnalysis: true,
+            algorithm: true,
+            iot: true,
+            embedded: true,
+            system: true,
+            multimedia: true,
+            graphic: true,
+            network: true,
+            game: true,
+            language: true
+        }
     };
-
+    
     handleClickArea = (e) => {
         const {area} = this.state;
         this.setState({
@@ -87,33 +70,11 @@ class DevelopInput extends Component {
         });
     }
 
-    handleDelete = (i) => {
-        const { tags } = this.state;
-        this.setState({
-         tags: tags.filter((tag, index) => index !== i),
-        });
-    }
- 
-    handleAddition = (tag) => {
-        this.setState(state => ({ tags: [...state.tags, tag] }));
-    }
- 
-    handleDrag = (tag, currPos, newPos) => {
-        const tags = [...this.state.tags];
-        const newTags = tags.slice();
- 
-        newTags.splice(currPos, 1);
-        newTags.splice(newPos, 0, tag);
- 
-        // re-render
-        this.setState({ tags: newTags });
-    }
-
     render() {
-        const {area} = this.state;
+        const { area } = this.state;
         return (
             <div>
-                <Form className = {cx('devInput')}>
+                <Form>
                     <Segment piled style={style.paddinglr}>
                         <Message style={style.question} as='h3'> Have you ever been programming? </Message>
                         <div style={style.row}>
@@ -129,35 +90,39 @@ class DevelopInput extends Component {
                                 <Message style={style.question} as='h3'>Please select areas you had experienced.</Message>
                                 <Segment inverted style={style.row}>
                                     <Button style={style.base} onClick={this.handleClickArea} name='ai' inverted={area.ai} color="red"> A.I </Button>
-                                    <Button style={style.base} name='web' inverted={area.web} color="orange"> Web </Button>
-                                    <Button style={style.base} name='server' inverted={area.server} color="blue"> Server </Button>
-                                    <Button style={style.base} name='mobile' inverted={area.mobile} color="purple"> Mobile </Button>
-                                    <Button style={style.base} name='system' inverted={area.system} color="yellow"> System Programming </Button>
-                                    <Button style={style.base} name='dataAnalysis' inverted={area.dataAnalysis} color="green"> Data Analysis </Button>
-                                    <Button style={style.base} name='algorithm' inverted={area.algorithm} color="red"> Algorithm </Button>
-                                    <Button style={style.base} name='iot' inverted={area.iot} color="purple"> IOT </Button>
-                                    <Button style={style.base} name='embedded' inverted={area.embedded} color="pink"> Embedded System</Button>
-                                    <Button style={style.base} name='multimedia' inverted={area.multimedia} color="violet"> Multimedia </Button>
-                                    <Button style={style.base} name='graphic' inverted={area.graphic} color="brown"> Graphics </Button>
-                                    <Button style={style.base} name='network' inverted={area.network} color="olive"> Network </Button>
-                                    <Button style={style.base} name='console' inverted={area.console} color="blue"> I just experienced programming language grammer </Button>
+                                    <Button style={style.base} onClick={this.handleClickArea} name='web' inverted={area.web} color="orange"> Web </Button>
+                                    <Button style={style.base} onClick={this.handleClickArea} name='server' inverted={area.server} color="blue"> Server </Button>
+                                    <Button style={style.base} onClick={this.handleClickArea} name='mobile' inverted={area.mobile} color="purple"> Mobile </Button>
+                                    <Button style={style.base} onClick={this.handleClickArea} name='system' inverted={area.system} color="yellow"> System Programming </Button>
+                                    <Button style={style.base} onClick={this.handleClickArea} name='dataAnalysis' inverted={area.dataAnalysis} color="green"> Data Analysis </Button>
+                                    <Button style={style.base} onClick={this.handleClickArea} name='algorithm' inverted={area.algorithm} color="red"> Algorithm </Button>
+                                    <Button style={style.base} onClick={this.handleClickArea} name='iot' inverted={area.iot} color="purple"> IOT </Button>
+                                    <Button style={style.base} onClick={this.handleClickArea} name='embedded' inverted={area.embedded} color="pink"> Embedded System</Button>
+                                    <Button style={style.base} onClick={this.handleClickArea} name='multimedia' inverted={area.multimedia} color="violet"> Multimedia </Button>
+                                    <Button style={style.base} onClick={this.handleClickArea} name='graphic' inverted={area.graphic} color="brown"> Graphics </Button>
+                                    <Button style={style.base} onClick={this.handleClickArea} name='network' inverted={area.network} color="olive"> Network </Button>
+                                    <Button style={style.base} onClick={this.handleClickArea} name='language' inverted={area.language} color="blue"> I experienced programming language grammer </Button>
                                 </Segment>
                                 <Message style={style.question} as='h3'>Tag libraries or technologies you can use.</Message>
-                                <Transition visible={!area.ai} animation='scale' duration={500}>
-                                    <div>
-                                        <h4>A.I</h4>
-                                        <ReactTags 
-                                            autocomplete={true}
-                                            tags={this.state.tags}
-                                            suggestions={this.state.suggestions}
-                                            handleDelete={this.handleDelete}
-                                            handleAddition={this.handleAddition}
-                                            handleDrag={this.handleDrag}
-                                            delimiters={delimiters} />
-                                    </div>
-                                </Transition>
+                                <div className="tag-input">
+                                    <TagInput visible={!area.ai} title='A.I' />
+                                    <TagInput visible={!area.web} title='Web' />
+                                    <TagInput visible={!area.server} title='Server' />
+                                    <TagInput visible={!area.mobile} title='Mobile' />
+                                    <TagInput visible={!area.dataAnalysis} title='Data Analysis' />
+                                    <TagInput visible={!area.algorithm} title='Algorithm' />
+                                    <TagInput visible={!area.iot} title='IOT' />
+                                    <TagInput visible={!area.embedded} title='Embedded System' />
+                                    <TagInput visible={!area.system} title='System Programming' />
+                                    <TagInput visible={!area.multimedia} title='Multimedia'/>
+                                    <TagInput visible={!area.graphic} title='Graphics'/>
+                                    <TagInput visible={!area.network} title='Network'/>
+                                    <TagInput visible={!area.game} title='Game'/>
+                                    <TagInput visible={!area.language} title='Programming Language'/>
+                                </div>
                             </div>
                         )}
+                        <Link to='/signup/3'><Button color='teal' fluid size='large'>Next</Button></Link>
                     </Segment>
                 </Form>
             </div>

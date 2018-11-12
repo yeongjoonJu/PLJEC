@@ -1,0 +1,12 @@
+
+.tag-input {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin: 2%;
+}
+
+.paddinglr {
+    padding-left: 6%;
+    padding-right: 6%;
+}
