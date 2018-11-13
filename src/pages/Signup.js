@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import {PersonalInputContainer} from 'containers';
 import {RegisterHeaderContainer} from 'containers';
 import {DevelopInputContainer} from 'containers';
+import {ExperienceInputContainer} from 'containers';
 
 import {
   Container,
@@ -43,6 +44,7 @@ class Signup extends Component {
                 <Container style={style.base}>
                     { (number === '1' || number === undefined) && <PersonalInputContainer />}
                     { (number === '2') && <DevelopInputContainer />}
+                    { (number === '3') && <ExperienceInputContainer/>}
                 </Container>
             </div>
         );

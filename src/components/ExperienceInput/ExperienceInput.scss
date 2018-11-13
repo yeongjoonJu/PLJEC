@@ -1,0 +1,18 @@
+@import '~open-color/open-color';
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: space-around;
+}
+
+.addCard {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   width: 290px;
+   margin:7px;
+   padding-left: 1rem;
+   padding-right: 1rem;
+}

@@ -35,13 +35,13 @@ class PersonalInput extends Component {
                 <Form>
                     <Segment piled style={style.paddinglr}>
                         <Label style={style.base}> Email </Label>
-                        { !check.email && <Label pointing='left' color='red' basic>Please enter a valid email address </Label>}
+                        { !check.email && <Label pointing='below' color='red' basic>Please enter a valid email address </Label>}
                         <Form.Input disabled={sended} onChange={onChange} name='email' fluid icon='at' iconPosition='right' placeholder='E-mail address'/>
                         <Label style={style.base}> Password </Label>
-                        { !check.password && <Label pointing='left' color='red' basic>The password must be between 8 and 20 characters and it must be a mixture of numbers and alphabetic characters. </Label>}
+                        { !check.password && <Label pointing='below' color='red' basic>The password must be between 8 and 20 characters and it must be a mixture of numbers and alphabetic characters. </Label>}
                         <Form.Input onChange={onChange} name='password' fluid icon='lock' placeholder='Password' type='password'/>
                         <Label style={style.base}> Password Check </Label>
-                        { !check.pcheck && <Label pointing='left' color='red' basic>Passwords do not match. Please check again. </Label>}
+                        { !check.pcheck && <Label pointing='below' color='red' basic>Passwords do not match. Please check again. </Label>}
                         <Form.Input onChange={onChange} name='pcheck' fluid icon='check' placeholder='Password Check' type='password'/>
                         <Label style={style.base}> Email Authentication </Label>
                         <div>

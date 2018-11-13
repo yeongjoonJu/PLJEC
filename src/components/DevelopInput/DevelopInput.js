@@ -59,16 +59,18 @@ class DevelopInput extends Component {
         choicedinterestList = choicedinterestList.map(
             ({id, text, color, choice}) => (
                 <Transition key={id} visible={choice} animation='scale' duration={300}>
-                    <Button onClick={onAddInterest} style={style.base} name={text} inverted={false} color={color}> {text} </Button>
+                   <Button onClick={onAddInterest} style={style.base} name={text} inverted={false} color={color}> {text} </Button>
                 </Transition>
             )
         );
 
         return (
             <div>
+                <Message icon='info circle' info style={style.question}  as='h3'
+                content='Whatever you choose, you can participate in the project with the role you want.'/>
                 <Form>
                     <Segment piled style={style.paddinglr}>
-                        <Message style={style.question} as='h3'> Have you ever been programming? (If you are designer, choice 'no' ) </Message>
+                        <Message style={style.question} as='h3'> Have you ever been programming? </Message>
                         <div className='area'>
                             <Form.Field style={style.radio}>
                                 <Checkbox onClick={this.handleDevelopRadio} checked={everCoding} radio label='Yes' name='everCoding' value='yes'/>

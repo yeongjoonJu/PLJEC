@@ -76,13 +76,15 @@ yarn install --ignore-engines
 ```
 
 
-서버 빌드
+서비스 실행
 
-npm run build
+```
+serve -s build
+```
 
 개발서버 실행
 
-npm run development
+yarn start
 
 
 
