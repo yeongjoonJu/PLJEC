@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { RegisterHeader } from 'components';
+import { RegisterHeader } from 'components/Register';
 import * as inputActions from 'store/modules/personalInputReducer';
 
 class RegisterHeaderContainer extends Component {

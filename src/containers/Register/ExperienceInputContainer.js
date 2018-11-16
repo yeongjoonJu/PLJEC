@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import ExperienceInput from 'components/ExperienceInput';
+import ExperienceInput from 'components/Register/ExperienceInput';
 import * as inputActions from 'store/modules/experienceInputReducer';
 import { Input } from 'semantic-ui-react';
 

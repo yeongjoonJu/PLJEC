@@ -23,6 +23,7 @@ const initialState = {
     email : '',
     password : '',
     pcheck : '',
+    nickname: '',
     certification_number : '',
     sended : false,
     // 인증 확인 번호
@@ -31,6 +32,7 @@ const initialState = {
         email : false,
         password : false,
         pcheck : false,
+        nickname: false,
         enable_next : false
     },
 
@@ -44,6 +46,7 @@ export default handleActions ({
         const { name, value } = action.payload;
         const email_regex = /([\w\.\-_]+)?\w+@[\w-_]+(\.\w+){1,}/;
         const password_regex = /^(?=.*\d)(?=.*[a-z])(?=.*[a-zA-Z]).{8,20}$/;
+        const nickname_regex = /^[0-9a-zA-Z가-힝]*$/;
         let check = false;
 
         if(name === 'email') {
@@ -54,6 +57,10 @@ export default handleActions ({
         }
         else if(name === 'pcheck') {
             if(value === state.password) check = true;
+        }
+        else if(name === 'nickname') {
+            if(value.length >= 2)
+                check = (nickname_regex.exec(value) !== null);
         }
 
         return {

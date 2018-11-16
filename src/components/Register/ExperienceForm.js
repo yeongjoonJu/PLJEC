@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { TextArea, Input, Card, Label, Button} from 'semantic-ui-react';
-import TagInput from './TagInput';
+import TagInput from '../TagInput';
 
 const style = {
     base : {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { PersonalInput } from 'components';
+import { PersonalInput } from 'components/Register';
 import * as inputActions from 'store/modules/personalInputReducer';
 
 class PersonalInputContainer extends Component {

@@ -37,7 +37,7 @@ class RegisterHeader extends Component {
         return (
             <div>
                 <Container style={style.h3}>
-                    <Link to={prior}><Button onClick={onClickHome} content='Back' icon='arrow alternate circle left outline' labelPosition='left' /></Link>
+                    { number !== '4' && <Link to={prior}><Button onClick={onClickHome} content='Back' icon='arrow alternate circle left outline' labelPosition='left' /></Link>}
                     <h1>Join PLJEC</h1>
                     The best way to implement your idea with diverse people.
                 </Container>

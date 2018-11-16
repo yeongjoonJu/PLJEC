@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import { Link } from 'react-router-dom';
-import {PersonalInputContainer} from 'containers';
-import {RegisterHeaderContainer} from 'containers';
-import {DevelopInputContainer} from 'containers';
-import {ExperienceInputContainer} from 'containers';
+import {PersonalInputContainer} from 'containers/Register';
+import {RegisterHeaderContainer} from 'containers/Register';
+import {DevelopInputContainer} from 'containers/Register';
+import {ExperienceInputContainer} from 'containers/Register';
+import {CompleteRegister} from 'components/Register';
 
 import {
   Container,
@@ -45,6 +45,7 @@ class Signup extends Component {
                     { (number === '1' || number === undefined) && <PersonalInputContainer />}
                     { (number === '2') && <DevelopInputContainer />}
                     { (number === '3') && <ExperienceInputContainer/>}
+                    { (number === '4') && <CompleteRegister/>}
                 </Container>
             </div>
         );

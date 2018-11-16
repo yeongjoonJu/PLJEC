@@ -3,6 +3,7 @@ import { Segment, Message, Form, Card, Button, Header, Icon } from 'semantic-ui-
 import styles from './ExperienceInput.scss';
 import classNames from 'classnames/bind';
 import ExperienceForm from '../ExperienceForm';
+import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
@@ -48,6 +49,7 @@ class ExperienceInput extends Component {
                         <div className={cx('addCard')}><Button onClick={onAddExperience} style={style.base}>+</Button></div>
                     </div>
                 </Segment>
+                <Link to='/signup/4'><Button color='teal' fluid size='large'>Registration</Button></Link>
             </Form>
         )
     }

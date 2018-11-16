@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import DevelopInput from 'components/DevelopInput';
+import DevelopInput from 'components/Register/DevelopInput';
 import * as inputActions from 'store/modules/developInputReducer';
 
 class DevelopInputContainer extends Component {

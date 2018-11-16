@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import TagInput from '../TagInput';
+import TagInput from '../../TagInput';
 import './DevelopInput.css';
 import {
     Button,

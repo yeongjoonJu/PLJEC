@@ -34,6 +34,9 @@ class PersonalInput extends Component {
             <div>
                 <Form>
                     <Segment piled style={style.paddinglr}>
+                        <Label style={style.base}> Nickname </Label>
+                        { !check.nickname && <Label pointing='below' color='red' basic> Nicknames can not contain special characters </Label>}
+                        <Form.Input onChange={onChange} name='nickname' placeholder='Nickname'/>
                         <Label style={style.base}> Email </Label>
                         { !check.email && <Label pointing='below' color='red' basic>Please enter a valid email address </Label>}
                         <Form.Input disabled={sended} onChange={onChange} name='email' fluid icon='at' iconPosition='right' placeholder='E-mail address'/>
