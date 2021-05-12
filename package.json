@@ -48,7 +48,7 @@
     "morgan": "^1.9.1",
     "net": "^1.0.2",
     "node-sass": "^4.10.0",
-    "nodemailer": "^4.6.8",
+    "nodemailer": "^6.4.16",
     "open-color": "^1.6.3",
     "optimize-css-assets-webpack-plugin": "5.0.1",
     "pnp-webpack-plugin": "1.1.0",
