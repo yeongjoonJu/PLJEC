@@ -47,7 +47,7 @@
     "mongoose": "^5.3.10",
     "morgan": "^1.9.1",
     "net": "^1.0.2",
-    "node-sass": "^4.10.0",
+    "node-sass": "^7.0.0",
     "nodemailer": "^4.6.8",
     "open-color": "^1.6.3",
     "optimize-css-assets-webpack-plugin": "5.0.1",
